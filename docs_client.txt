@@ -1,0 +1,8 @@
+doc client : utilisateur
+http://docs.google.com/Doc?id=dgqhgsgm_356dwjcj4c5
+
+doc client : exploitation
+http://docs.google.com/Doc?id=dgqhgsgm_357gz7ng6cq
+
+doc client : développeur
+http://docs.google.com/Doc?id=dgqhgsgm_358mftgz79f 
