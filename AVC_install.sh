@@ -75,7 +75,6 @@ echo "		<Context path=\"/univ-r_av\" docBase=\"univ-r_av\">" >> /etc/tomcat6/ser
 echo "			<Environment name=\"volume\" value=\"1\" type=\"java.lang.Short\" override=\"false\">" >> /etc/tomcat6/server.xml
 echo "			<Resource name=\"jdbc/postgres\" auth=\"Container\" type=\"javax.sql.DataSource\" driverClassName=\"org.postgresql.Driver\" url=\"jdbc:postgresql://127.0.0.1:5432/univrav\" username=\"sqluser\" password=\"a_changer\" maxActive=\"20\" maxIdle=\"10\" maxWait=\"-1\"/>" >> /etc/tomcat6/server.xml
 echo "			<Resource name=\"ldap/ox\" auth=\"Container\" type=\"com.sun.jndi.ldap.LdapCtx\" factory=\"org.ulpmm.univrav.dao.LdapFactory\" java.naming.factory.initial=\"com.sun.jndi.ldap.LdapCtxFactory\" java.naming.provider.url=\"a_changer\" java.naming.security.authentication=\"simple\" java.naming.security.principal=\"a_changer\" java.naming.security.credentials=\"a_changer\" com.sun.jndi.ldap.connect.pool=\"true\" java.naming.security.protocol=\"ssl\" com.sun.jndi.ldap.connect.timeout=\"5000\" com.sun.jndi.ldap.read.timeout=\"5000\"/>" >> /etc/tomcat6/server.xml
-echo "			<Environment name=\"volume\" value=\"1\" type=\"java.lang.Short\" override=\"false\"/>" >> /etc/tomcat6/server.xml
 echo "		</Context>" >> /etc/tomcat6/server.xml
 echo "      </Host>" >> /etc/tomcat6/server.xml
 echo "    </Engine>" >> /etc/tomcat6/server.xml
