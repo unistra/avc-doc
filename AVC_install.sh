@@ -1,6 +1,5 @@
 #!/bin/bash
-
-echo "Ce script doit être exécuté en tant que root"
+echo "Ce script doit être exécuté en tant que root pour une distribution ubuntu 9.04"
 echo "ATTENTION : Les configurations existantes de TOMCAT6, APACHE et VSFTPD seront écrasés"
 echo "Veuillez remplacer le mot de passe 'a_changer' par vos mots de passe avant d'exécuter le script"
 read -p "Appuyer sur 'entrée' pour continuer ou Ctrl+c pour stopper"
@@ -31,6 +30,15 @@ echo "Récupération des sources du projet"
 mkdir -p /root/src/server; cd /root/src/server
 svn co http://src.unistra.fr/svn/videocours/tags/server/release-2.17;mv release-2.17 univ-r_av
 echo "------------------------------------"
+echo "Récupération du player flash JW player"
+echo "Licence : Creative Commons : Attribution-Noncommercial-Share Alike 3.0 Unported"
+echo "http://creativecommons.org/licenses/by-nc-sa/3.0/"
+echo "Consulter le readme de jwplayer dans les sources pour plus d'informations"
+read -p "Appuyer sur 'entrée' pour accepter la licence et continuer l'installation ou Ctrl+c pour stopper"
+wget http://audiovideocours.u-strasbg.fr/releases/player.swf
+mv player.swf /root/src/server/univ-r_av/WebContent/files/jwflvplayer/
+echo "------------------------------------"
+
 echo "Configuration de postgres"
 /etc/init.d/postgresql-8.3 restart
 echo "Entrer un mot de passe pour sqluser"
