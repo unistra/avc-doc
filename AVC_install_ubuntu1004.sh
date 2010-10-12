@@ -28,7 +28,7 @@ apt-get update
 apt-get upgrade
 apt-get install postgresql tomcat6 apache2 vsftpd zip unzip mailutils libpg-java libcommons-fileupload-java libcommons-io-java libcommons-lang-java libcommons-beanutils-java libcommons-collections3-java libcommons-logging-java ant subversion liblog4j1.2-java openjdk-6-jdk
 #paquets pour l'encodage
-apt-get install vorbis-tools lame mplayer mencoder ffmpeg libavcodec-unstripped-52 mp3info yamdi faac zip unzip python2.6 python-reportlab python-psycopg2 atomicparsley
+apt-get install vorbis-tools lame mplayer mencoder ffmpeg libavcodec-unstripped-52 mp3info yamdi faac zip unzip python2.6 python-reportlab python-psycopg2 atomicparsley bc
 #apt-get install pgadmin3 #optionnel
 echo "------------------------------------"
 
