@@ -81,8 +81,9 @@ echo "<?xml version='1.0' encoding='utf-8'?>" > /etc/tomcat6/tomcat-users.xml
 echo "<tomcat-users>" >> /etc/tomcat6/tomcat-users.xml
 echo "  <role rolename=\"tomcat\"/>" >> /etc/tomcat6/tomcat-users.xml
 echo "  <role rolename=\"manager\"/>" >> /etc/tomcat6/tomcat-users.xml
+echo "  <role rolename=\"gp\"/>" >> /etc/tomcat6/tomcat-users.xml
 echo "  <role rolename=\"$LOGIN_TOMCAT_USER\"/>" >> /etc/tomcat6/tomcat-users.xml
-echo " <user username=\"$LOGIN_TOMCAT_USER\" password=\"$MOTPASS_TOMCAT_USER\" roles=\"tomcat,manager,ulpmm\"/>" >> /etc/tomcat6/tomcat-users.xml
+echo " <user username=\"$LOGIN_TOMCAT_USER\" password=\"$MOTPASS_TOMCAT_USER\" roles=\"tomcat,manager,ulpmm,gp\"/>" >> /etc/tomcat6/tomcat-users.xml
 echo "</tomcat-users>" >> /etc/tomcat6/tomcat-users.xml
 
 #server.xml
