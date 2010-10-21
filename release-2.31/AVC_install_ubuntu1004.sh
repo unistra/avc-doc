@@ -50,7 +50,7 @@ echo "-------------------------------------"
 
 echo "Récupération des sources du projet"
 mkdir -p /root/src/server; cd /root/src/server
-svn co https://subversion.cru.fr/audiovideocours/trunk/server/univ-r_av/; mv release-2.31 univ-r_av
+svn co https://subversion.cru.fr/audiovideocours/tags/server/release-2.31/; mv release-2.31 univ-r_av
 echo "------------------------------------"
 echo "Récupération du player flash JW player"
 echo "Licence : Creative Commons : Attribution-Noncommercial-Share Alike 3.0 Unported"
