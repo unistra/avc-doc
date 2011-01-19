@@ -1,0 +1,14 @@
+StyleAdapter for AudioVidéoCours website.
+
+Usage information.
+Place your ping logo file in the directory "files".
+Edit the variable LOGOFILENAME at the beginning of the script.
+Modify THEMEPATH and CONFFILE if the website is not installed in the default path.
+You can edit MARGLEFT and MARGTOP to place your logo. Beware, MARGTOP is calculated in the script too.
+The value in the script are the minimal values.
+The maximal values are :
+44 + (250 - WIDTH) 
+84 + (80 - HEIGHT) for the top margin
+Launch the script as root.
+
+Don't forget to change the University Name, Acronym and Link at the end of the script.

@@ -1,0 +1,4 @@
+To renencode all files, launch with the command : 
+sudo bash go.sh [idcourse]
+Do not forget to change the parameters in the files go.sh and accessbase.py
+

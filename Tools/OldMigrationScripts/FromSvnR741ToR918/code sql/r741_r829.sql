@@ -1,0 +1,12 @@
+ALTER TABLE course ADD mediatype integer;
+UPDATE course SET mediatype=31;
+UPDATE course SET mediatype=7 WHERE type='audio' AND mediafolder like 'mu-%';
+UPDATE course SET mediatype=23 WHERE type='video' AND mediafolder like 'mu-%';
+UPDATE course SET mediatype=159 WHERE highquality=true AND mediatype=31;
+UPDATE course SET mediatype=151 WHERE highquality=true AND mediatype=23;
+UPDATE course SET mediatype=95 WHERE adddocname is not null AND mediatype=31;
+UPDATE course SET mediatype=71 WHERE adddocname is not null AND mediatype=7;
+UPDATE course SET mediatype=87 WHERE adddocname is not null AND mediatype=23;
+UPDATE course SET mediatype=223 WHERE adddocname is not null AND mediatype=159;
+UPDATE course SET mediatype=215 WHERE adddocname is not null AND mediatype=151;
+ALTER TABLE course DROP COLUMN highquality;
