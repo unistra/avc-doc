@@ -50,7 +50,7 @@ echo "-------------------------------------"
 
 echo "Récupération des sources du projet"
 mkdir -p /root/src/server; cd /root/src/server
-svn co https://subversion.cru.fr/audiovideocours/trunk/server/univ-r_av/ #; mv release-2.17 univ-r_av
+svn co https://subversion.cru.fr/audiovideocours/tags/server/release-2.36/; mv release-2.36 univ-r_av
 echo "------------------------------------"
 echo "Récupération du player flash JW player"
 echo "Licence : Creative Commons : Attribution-Noncommercial-Share Alike 3.0 Unported"
@@ -142,7 +142,7 @@ echo "RewriteRule ^(.*)/avc/myspace(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=3
 echo "RewriteRule ^(.*)/admin(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]" >> /etc/apache2/sites-available/univrav.conf
 echo "RewriteRule ^(.*)/avc/admin(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]" >> /etc/apache2/sites-available/univrav.conf
 echo "RewriteRule ^(.*)/avc/publication(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]" >> /etc/apache2/sites-available/univrav.conf
-echo "RewriteRule ^(.*)/avc/authentification(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]" >> /etc/apache2/sites-available/univrav.conf
+echo "RewriteRule ^(.*)/avc/authentication(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]" >> /etc/apache2/sites-available/univrav.conf
 echo "Include /etc/apache2/sites-available/univrav.include" >> /etc/apache2/sites-available/univrav.conf
 echo "</VirtualHost>" >> /etc/apache2/sites-available/univrav.conf
 echo "#<VirtualHost *:443>" >> /etc/apache2/sites-available/univrav.conf
