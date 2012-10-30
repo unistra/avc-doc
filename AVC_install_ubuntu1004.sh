@@ -18,7 +18,7 @@ SERVERBASE_TOMCAT_SQL="$IP_SQLSERVER:$PORT_SQLSERVER/$NOMBASE"	#L'ip du serveur 
 TOMCAT_LDAP_URL="a_changer"				#L'adresse du serveur LDAP avec le port ex:ldaps://votreurlldap.domain:636
 TOMCAT_LDAP_SEC_MAIN="a_changer"			#Le login de l'utilisateur LDAP ex:cn=toto,ou=tata,ou=titi,o=tutu
 TOMCAT_LDAP_SEC_CRED="a_changer"			#Le mot de passe de l'utilisateur LDAP
-URLJOBBACK="http://localhost/univ-r_av"			#Url de votre serveur pour les jobs. Ex: URLJOBBACK="http://audiovideocours.u-strasbg.fr"
+URLJOBBACK="http://localhost/univ-r_av"			#Url de votre serveur pour les jobs. Ex: URLJOBBACK="http://audiovideocast.unistra.fr"
 CAS_URL="https:\/\/cas.unistra.fr"			#Mettez l'url de votre serveur cas
 
 STARTDIR=`pwd`
@@ -57,7 +57,7 @@ echo "Licence : Creative Commons : Attribution-Noncommercial-Share Alike 3.0 Unp
 echo "http://creativecommons.org/licenses/by-nc-sa/3.0/"
 cat /root/src/server/univ-r_av/WebContent/files/jwflvplayer/readme.txt
 read -p "Appuyer sur 'entrée' pour accepter la licence et continuer l'installation ou Ctrl+c pour stopper"
-wget http://audiovideocours.u-strasbg.fr/releases/player.swf
+wget http://audiovideocast.unistra.fr/releases/player.swf
 mv player.swf /root/src/server/univ-r_av/WebContent/files/jwflvplayer/
 echo "------------------------------------"
 
@@ -193,12 +193,6 @@ a2ensite univrav.conf
 /etc/init.d/apache2 restart
 echo "------------------------------------"
 echo "Modification du fichier /var/lib/tomcat6/webapps/univ-r_av/conf/univrav.properties et /var/lib/tomcat6/webapps/univ-r_av/WEB-INF/web/xml"
-sed -i 's/http:\/\/audiovideocours.u-strasbg.fr/http:\/\/localhost\/univ-r_av/' /var/lib/tomcat6/webapps/univ-r_av/conf/univrav.properties
-sed -i 's/coursesUrl\ =\ http:\/\/localhost\/univ-r_av\/coursv2\//coursesUrl\ =\ http:\/\/localhost\/coursv2\//' /var/lib/tomcat6/webapps/univ-r_av/conf/univrav.properties
-sed -i 's/adminEmail1=elaemmer@unistra.fr/adminEmail1=yourmail@mail.fr/' /var/lib/tomcat6/webapps/univ-r_av/conf/univrav.properties
-sed -i 's/adminEmail2=morgan.bohn@unistra.fr/adminEmail2=/' /var/lib/tomcat6/webapps/univ-r_av/conf/univrav.properties
-sed -i 's/adminEmail3=schnellf@unistra.fr/adminEmail3=/' /var/lib/tomcat6/webapps/univ-r_av/conf/univrav.properties
-sed -i 's/audiovideocours.u-strasbg.fr/localhost/' /var/lib/tomcat6/webapps/univ-r_av/WEB-INF/web.xml
 sed -i 's/https:\/\/cas.unistra.fr/'$CAS_URL'/' /var/lib/tomcat6/webapps/univ-r_av/WEB-INF/web.xml
 echo "------------------------------------"
 
@@ -236,7 +230,7 @@ echo "Installation de lighttpd avec les modules de streaming et encodage sépar�
 cp -R /root/src/server/univ-r_av/WebContent/scripts/jobs_encodage /audiovideocours/cours/
 sed -i 's/dbapi2.connect.*/dbapi2.connect(\"host='\''localhost'\'' dbname='\'$NOMBASE\'' user='\'$LOGIN_SQL\'' password='\'$MOTPASS_SQL\''\")/' /audiovideocours/cours/jobs_encodage/accessbase.py
 #Modification du fichier univrav.properties
-sed -i 's/coursesUrl\ =\ http:\/\/localhost\/univ-r_av\/coursv2\//coursesUrl\ =\ http:\/\/localhost:81\//' /var/lib/tomcat6/webapps/univ-r_av/conf/univrav.properties
+sed -i 's/coursesUrl\ =\ http:\/\/localhost\/coursv2\//coursesUrl\ =\ http:\/\/localhost:81\//' /var/lib/tomcat6/webapps/univ-r_av/conf/univrav.properties
 sed -i 's/sepEnc=false/sepEnc=true/' /var/lib/tomcat6/webapps/univ-r_av/conf/univrav.properties
 #ligne cron
 echo "1-59/2 *        * * *   root    nice -n 19 bash /audiovideocours/cours/jobs_encodage/JobEnc.sh /audiovideocours/cours/jobs_encodage $URLJOBBACK /audiovideocours/cours &> /dev/null" >> /etc/crontab
