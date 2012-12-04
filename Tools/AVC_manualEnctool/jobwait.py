@@ -10,7 +10,7 @@ db = dbapi2.connect(dbparam)
 cur = db.cursor()
 
 if (courseid != ""):
-        cur.execute("UPDATE job SET status='waiting' WHERE courseid = %s;",(courseid,))
+        cur.execute("UPDATE job SET status='waiting' WHERE courseid = %s AND coursetype != 'ADDV';",(courseid,))
 
 db.commit()
 cur.close()
