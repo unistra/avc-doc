@@ -1,0 +1,8 @@
+A faire lors de la migration de ubuntu 10.04 vers ubuntu 12.04 :
+
+1) Installer le paquet "libavcodec-extra-53"
+2) Remplacer "profile" par "vprofile" dans le fichier /usr/share/avconv/libx264-ipod320.avpreset
+3) Remplacer "profile" par "vprofile" dans le fichier /usr/share/avconv/libx264-ipod640.avpreset
+4) Optionnel : Les paquets "faac", "mplayer", "mencoder" ne sont plus nécessaires
+5) Générer (via ant) et installer le war de la version 2.50 d'Audiovideocast
+6) Vérifier que votre base de données est à jour (voir script_creation_database.sql dans les sources)
