@@ -1,0 +1,3 @@
+Add this column in the "course" table:
+
+slidesoffset integer

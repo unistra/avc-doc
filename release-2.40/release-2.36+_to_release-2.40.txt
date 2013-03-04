@@ -1,0 +1,5 @@
+Add these three columns in the user table, in this order:
+
+resetcode character varying
+resetcodetype character varying
+dateresetcode timestamp without time zone
