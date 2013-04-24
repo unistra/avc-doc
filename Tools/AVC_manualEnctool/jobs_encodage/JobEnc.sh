@@ -69,8 +69,10 @@ python $PTHSCR/CreatePDF.py $MediaFolder $CourseID
 bash $PTHSCR/convertAll2Ogg.sh $MediaFolder $CourseID "mp3"
 #oggTag
 /usr/bin/vorbiscomment -w -t "title=$TITLE" -t "artist=$AUTHOR" -t "date=$DATE" -t "album=$FORMATION" -t "COMMENT=$COMMENT" $MediaFolder/$CourseID.ogg &> /dev/null
-#videoslideCreation $MediaFolder $CourseID
+#videoslideCreation
 bash $PTHSCR/videoslide.sh $MediaFolder $CourseID
+#convert videoslide to webm
+bash $PTHSCR/convertAll2Webm.sh $MediaFolder "$CourseID"_videoslide mp4
 #mp4Tag
 /usr/bin/AtomicParsley $MediaFolder/"$CourseID"_videoslide.mp4 --title "$TITLE" --artist "$AUTHOR" --year "$DATE" --album "$FORMATION" --comment "$COMMENT" --overWrite &> /dev/null
 /usr/bin/AtomicParsley $MediaFolder/"$CourseID"_videoslide_ipod.mp4 --title "$TITLE" --artist "$AUTHOR" --year "$DATE" --album "$FORMATION" --comment "$COMMENT" --overWrite &> /dev/null
@@ -89,15 +91,22 @@ python $PTHSCR/CreatePDF.py $MediaFolder $CourseID
 bash $PTHSCR/convertAll2Ogg.sh $MediaFolder $CourseID "mp3"
 #oggTag
 /usr/bin/vorbiscomment -w -t "title=$TITLE" -t "artist=$AUTHOR" -t "date=$DATE" -t "album=$FORMATION" -t "COMMENT=$COMMENT" $MediaFolder/$CourseID.ogg &> /dev/null
-#videoslideCreation(c.getMediaFolder(), c.getMediasFileName()); // VS
+#videoslideCreation
 bash $PTHSCR/videoslide.sh $MediaFolder $CourseID
+#convert videoslide to webm
+bash $PTHSCR/convertAll2Webm.sh $MediaFolder "$CourseID"_videoslide mp4
 #mp4Tag
 /usr/bin/AtomicParsley $MediaFolder/"$CourseID"_videoslide.mp4 --title "$TITLE" --artist "$AUTHOR" --year "$DATE" --album "$FORMATION" --comment "$COMMENT" --overWrite &> /dev/null
 /usr/bin/AtomicParsley $MediaFolder/"$CourseID"_videoslide_ipod.mp4 --title "$TITLE" --artist "$AUTHOR" --year "$DATE" --album "$FORMATION" --comment "$COMMENT" --overWrite &> /dev/null
 # flv to mp4 for html5
 bash $PTHSCR/convertAll2Mp4.sh $MediaFolder $CourseID.$Extension $CourseID $PTHSCR/calculate_padding.sh true &> /dev/null
+ln -s $MediaFolder/"$CourseID"_ipod.mp4 $MediaFolder/"$CourseID".mp4
+#mp4Tag for ipod
+/usr/bin/AtomicParsley $MediaFolder/"$CourseID"_ipod.mp4 --title "$TITLE" --artist "$AUTHOR" --year "$DATE" --album "$FORMATION" --comment "$COMMENT" --overWrite &> /dev/null
 # flv to ogv for html5
 ffmpeg2theora $MediaFolder/"$CourseID"_ipod.mp4 -o $MediaFolder/"$CourseID".ogv &> /dev/null
+# convert flv to webm for html5
+bash $PTHSCR/convertAll2Webm.sh $MediaFolder $CourseID flv
 ;;
 
 MUA)
@@ -180,6 +189,8 @@ bash $PTHSCR/convertAll2Mp4.sh $MediaFolder $ORI$CourseID.$Extension $CourseID $
 /usr/bin/AtomicParsley $MediaFolder/"$CourseID"_ipod.mp4 --title "$TITLE" --artist "$AUTHOR" --year "$DATE" --album "$FORMATION" --comment "$COMMENT" --overWrite &> /dev/null
 # ogv for html5
 ffmpeg2theora $MediaFolder/"$CourseID".mp4 -o $MediaFolder/"$CourseID".ogv &> /dev/null
+# webm for html5
+bash $PTHSCR/convertAll2Webm.sh $MediaFolder $CourseID mp4
 ;;
 
 ADDV)
@@ -198,6 +209,9 @@ ffmpeg2theora $MediaFolder/$FOLDER/"$AV$CourseID".mp4 -o $MediaFolder/$FOLDER/"$
 # remove original file
 rm $MediaFolder/$FOLDER/$ORI$AV$CourseID.$Extension
 rm $MediaFolder/$FOLDER/$AV$CourseID.mp3
+# webm for html5
+bash $PTHSCR/convertAll2Webm.sh $MediaFolder/$FOLDER $AV$CourseID mp4
+;;
 esac
 
 # Maj du mediatype sur le serveur avc
