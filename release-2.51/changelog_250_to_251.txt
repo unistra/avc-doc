@@ -1,0 +1,19 @@
+Changelog from version 2.50 to 2.51
+===================================
+
+- Add a fluid transition between slides
+- Add an option to extend slides on click
+- Block the right click in html5 video
+- Upgrade the quality of the SD video uploaded (flv)
+- For videos from the client : add a link from ID_ipod.mp4 to ID.mp4
+- Add the webm format for video, videoslide, additional video (with a mediatype)
+- Add user agent mobile for the html5 switch
+- Remove the additionnal video option for uploaded audio and video
+- Replace table by div for the layout of visualization page
+- Hide the caracters of access code
+- Correct the JSON datatype for findTracks and findStats
+- Add visible records for findTracks and findStats
+- Change the link of the wiki project
+- Change the image of mp3
+- Correct the getMediafolder() method
+- Create a tool to encode webm, mp4 for old records
