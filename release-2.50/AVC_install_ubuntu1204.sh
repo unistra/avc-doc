@@ -32,11 +32,10 @@ apt-get install vorbis-tools lame ffmpeg libavcodec-extra-53 eyeD3 ffmpeg2theora
 #apt-get install pgadmin3 #optionnel
 echo "------------------------------------"
 
-# useless with the new ffmpeg 0.8.6 (but necessary with ffmpeg 0.8.5)
-# echo "Modification des presets ipod"
-# sed -i 's/^profile/vprofile/' /usr/share/avconv/libx264-ipod320.avpreset
-# sed -i 's/^profile/vprofile/' /usr/share/avconv/libx264-ipod640.avpreset
-# echo "------------------------------------"
+echo "Modification des presets ipod"
+sed -i 's/^profile/vprofile/' /usr/share/avconv/libx264-ipod320.avpreset
+sed -i 's/^profile/vprofile/' /usr/share/avconv/libx264-ipod640.avpreset
+echo "------------------------------------"
 
 echo "Configuration du serveur ftp"
 mkdir /audiovideocours
