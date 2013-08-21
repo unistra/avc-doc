@@ -1,0 +1,29 @@
+avc_encode_webm
+===============
+
+This tool encode old videos into webm and mp4, and update the mediatype.
+Webm and mp4 are necessary for the HTML5 page.
+
+Requirements
+-------------
+Python 2.7 with psycopg2
+
+Configuration
+-------------
+
+Configure the config.ini file :
+* filename : the name for the log file
+* pthscr : the path of the avc encoding scripts
+* pthcours : the path of the avc courses
+* interval : the courseid interval concerned
+* host : database host
+* port : database port
+* dbname : database name
+* user : database user
+* password : database password
+* owner_user : system user for the courses folders
+* owner_group : system group for the courses folders
+
+Run
+---
+python encode.py
