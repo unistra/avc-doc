@@ -1,0 +1,13 @@
+Changelog from version 2.51 to 2.52
+===================================
+
+- Hide the access code
+- Add a new html5 interface
+- Add a new parameter in univrav.properties : defaultRecordInterface
+- Set the html5 interface by default
+- Add a button and a cookie for the html5/flash switch
+- Change the video html5 size
+- Add logo for audio file in html5
+- Create subtitles for html5
+- Remove all ogv
+- Create webm and mp4 files for old videos
