@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# $1 is the job id to reencode
+# $1 is the course id to reencode
 
 if test -z "$1"
 then
