@@ -1,0 +1,10 @@
+Migration from release-2.51 to release-2.52
+===========================================
+
+* Get the server tag 2.52 from the svn trunk
+* Configure univrav.properties and web.xml
+* Generate and deploy the war with ant and tomcat
+* Use the tool "avc_encode_webm" to encode old videos into webm and mp4 (for html5)
+* Ogv are now useless. You can remove all ogv if you want.
+* If you have some courses with subtitles, you can generate subtitles for the html5 
+  page with the script "to_srt.py" (see in the "scripts" folder of the univrav folder)
