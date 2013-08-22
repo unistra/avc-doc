@@ -1,0 +1,44 @@
+Audiovideocast 2.52
+for captions on flash video file we are using an xml file. The file format is not convenient for html5 display. So we need to convert the xml files into srt files in order to make captions for HTML videos too.
+
+XML file caption format for flash:
+
+
+<tt xmlns="http://www.w3.org/2006/10/ttaf1">
+  <body>
+    <div>
+      <p begin="00:00:00" end="00:00:2">Hello world!</p>
+      <p begin="00:00:05" end="00:00:08">How are you?</p>
+      <p begin="00:00:15" end="00:00:20">Bonjour tout le monde !</p>
+      <p begin="00:00:25" end="00:00:30">Comment allez-vous ?</p>	
+    </div>
+  </body>
+</tt>
+
+Srt file caption format for HTML5:
+
+<U+FEFF>
+1
+00:00:00,000 --> 00:00:02,000
+Hello world!
+
+2
+00:00:05,000 --> 00:00:08,000
+How are you?
+
+3
+00:00:15,000 --> 00:00:20,000
+Bonjour tout le monde !
+
+4
+00:00:25,000 --> 00:00:30,000
+Comment allez-vous ?
+
+This script will create the appropriate srt file based on the xml already uploaded.
+
+Be careful,it is based on /var/lib/tomcat6/webapps/univ-r_av/scripts/to_srt.py which must be present in your installation.
+
+chmod +x ./titres.sh
+./titres.sh
+
+

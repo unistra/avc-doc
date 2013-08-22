@@ -1,0 +1,8 @@
+audiovideocast 2.52
+
+Ce script recherche les .ogv et les supprime. En effet à partir de la 2.52, ce format de vidéo est remplacé par le webm.
+This script will delete all .ogv file. Since 2.52 we don't need ogv format replaced by webm format for videos.
+
+sudo -s
+chmod +x findogv.sh
+./findogv.sh
