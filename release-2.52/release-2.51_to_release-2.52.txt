@@ -5,6 +5,6 @@ Migration from release-2.51 to release-2.52
 * Configure univrav.properties and web.xml
 * Generate and deploy the war with ant and tomcat
 * Use the tool "avc_encode_webm" to encode old videos into webm and mp4 (for html5)
-* Ogv are now useless. You can remove all ogv if you want.
+* Ogv are now useless. You can remove all ogv if you want. we provide a script for making this operation /documentation/Tools/FindOgv/findogv.sh.
 * If you have some courses with subtitles, you can generate subtitles for the html5 
-  page with the script "to_srt.py" (see in the "scripts" folder of the univrav folder)
+  page with the script "to_srt.py" (see in the "scripts" folder of the univrav folder). We provide a script to create srt files for old videos :/documentation/Tools/XmlToSrt/xmltosrt.sh.
