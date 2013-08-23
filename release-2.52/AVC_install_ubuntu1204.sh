@@ -1,4 +1,8 @@
 #!/bin/bash
+
+NOW=$(date +"%b-%d-%Y-%Hh_%Mmm_%Ss")
+LOG="log-$NOW.log"
+(
 echo "Ce script doit être exécuté en tant que root pour une distribution ubuntu 12.04"
 echo "ATTENTION : Les configurations existantes de TOMCAT6, APACHE et VSFTPD seront écrasés"
 echo "Veuillez remplacer 'a_changer' dans les variables avant d'exécuter le script"
@@ -243,8 +247,11 @@ bash $STARTDIR/AVC_light.sh
 fi
 /etc/init.d/tomcat6 restart
 echo "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*"
-echo "Pensez à configurer le fichier univrav.properties et web.xml en suivant la doc, puis relancer Tomcat."
+echo "Pensez à configurer le fichier web.xml, server.xml et univrav.properties et web.xml en suivant la doc, puis relancer Tomcat."
 echo "Faite votre certificat, copier le dans le dossier adéquat et décommenter le bloc <VirtualHost *:443> du fichier /etc/apache2/sites-available/univrav.conf"
 echo "Une fois le certificat en place, relancer apache /etc/init.d/apache2 restart"
 echo "Accéder à l'application via http://localhost/univ-r_av"
 echo "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*"
+) 2>&1 | tee -a $LOG
+
+exit 1
