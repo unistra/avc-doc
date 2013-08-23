@@ -1,0 +1,39 @@
+Audiovideocast 2.52
+
+Vous pouvez installer audiovideocast à l'aide du script :AVC_install_ubuntu1204.sh. Il vous faudra l'exécuter sur une VM vide en root.
+Pour cela récupérer le dernier tag du projet sur notre svn:
+* svn checkout http://subversion.cru.fr/audiovideocours/documentation/release-2.52
+Le script d'installation rapide est présent dans le répertoire /audiovideocours/documentation/release-2.52.
+Ouvrez le et renseignez les paramètres demandés.
+Rendez le executable
+* chmod +x AVC_install_ubuntu1204.sh
+* sudo ./AVC_install_ubuntu1204.sh
+* Ensuite modifier les fichiers/var/lib/tomcat6/webapps/univ-r_av/WEB-INF/web.xml, 
+/var/lib/tomcat6/webapps/univ-r_av/WEB-INF/server.xml, /var/lib/tomcat6/webapps/univ-r_av/conf/univrav.properties 
+ainsi que les fichiers de configuration de l'application :/etc/apache2/sites-available/univrav.conf. Aidez vous pour cela de la documentation d'exploitation.
+* Redemarrez tomcat
+service tomcat6 restart
+* Redemarrez apache
+/etc/init.d/apache2 restart
+
+You can install audiovideocast using a bash script: AVC_install_ubuntu1204.sh. You will need to run it on a blank empty with root user.
+To retrieve the last tag this project on our svn:
+* Svn checkout http://subversion.cru.fr/audiovideocours/documentation/release-2.52
+The quick installation script is present in the directory /audiovideocours/documentation/release-2.52.
+Open and enter the required parameters
+Make it executable
+* chmod + x AVC_install_ubuntu1204.sh
+* sudo ./AVC_install_ubuntu1204.sh
+* Then change fichiers/var/lib/tomcat6/webapps/univ-r_av/WEB-INF/web.xml,
+/var/lib/tomcat6/webapps/univ-r_av/WEB-INF/server.xml, / var/lib/tomcat6/webapps/univ-r_av/conf/univrav.properties
+and configuration files for the application :/etc/apache2/sites-available/univrav.conf. You can refer to the developer documentation for helping.
+* Restart tomcat
+Service restart tomcat6
+* Restart apache
+/etc/init.d/apache2 restart
+
+
+
+
+
+
