@@ -6,3 +6,36 @@ A faire lors de la migration de ubuntu 10.04 vers ubuntu 12.04 :
 4) Optionnel : Les paquets "faac", "mplayer", "mencoder" ne sont plus nécessaires
 5) Générer (via ant) et installer le war de la version 2.50 d'Audiovideocast
 6) Vérifier que votre base de données est à jour (voir script_creation_database.sql dans les sources)
+
+Problèmes rencontrés à la suite de la migration :
+
+1) Lors de l'envoi d'un enregistrement du client, on a eu une erreur ftp. Cette erreur est due à une mise à jour sécurité de vsftpd.
+vsftpd: refusing to run with writable root inside chroot (). 
+Pour la régler :
+# wget https://launchpad.net/ubuntu/+source/vsftpd/3.0.2-1ubuntu1/+build/4237625/+files/vsftpd_3.0.2-1ubuntu1_amd64.deb
+# dpkg -i vsftpd_3.0.2-1ubuntu1_amd64.deb
+# echo "allow_writeable_chroot=YES" >> /etc/vsftpd.conf
+# service vsftpd restart
+2) Puis une autre erreur vsftpd : 500 OOPS: priv_sock_get_cmd
+Elle a été résolue en ajoutant dans le fichier de config : seccomp_sandbox=NO
+
+What to do when migrating from ubuntu 10.04 to ubuntu 12.04:
+
+1) Install the package "libavcodec-extra-53"
+2) Replace "Profile" with "vprofile" in the file / usr/share/avconv/libx264-ipod320.avpreset
+3) Replace "Profile" with "vprofile" in the file / usr/share/avconv/libx264-ipod640.avpreset
+4) Optional: Packages "faac", "mplayer", "mencoder" are no longer necessary
+5) Generate (via ant) and install the war of version 2.50 of Audiovideocast
+6) Check that your database is up to date (see script_creation_database.sql in sources)
+
+Problems after migration:
+
+1) When sending a customer record, we had a ftp error. This error is due to a security update for vsftpd.
+vsftpd: Refusing to run with writable root inside chroot ().
+To adjust:
+# wget
+# dpkg-i-1ubuntu1_amd64.deb vsftpd_3.0.2
+# echo "allow_writeable_chroot = YES" >> / etc / vsftpd.conf
+# service vsftpd restart
+2) Then another vsftpd error 500 OOPS: priv_sock_get_cmd
+It was resolved by adding the config file: seccomp_sandbox = NO
