@@ -1,0 +1,8 @@
+Changelog from version 2.52 to 2.53
+===================================
+
+- Add a configuration parameter : logstats
+- Add log_user_action table
+- Add LogUserAction model and methods (dao, service)
+- Log AVCast urls
+- Clean Application.java code

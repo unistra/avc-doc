@@ -1,0 +1,25 @@
+Migration from release-2.52 to release-2.53
+===========================================
+
+* Add log_user_action table :
+
+CREATE SEQUENCE log_user_action_logid_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+    
+CREATE TABLE log_user_action (
+    logid integer DEFAULT nextval('log_user_action_logid_seq'::regclass) NOT NULL,
+    date timestamp without time zone,
+    userid integer,
+    courseid integer,
+    action character varying NOT NULL,
+    url character varying NOT NULL,
+    type character varying NOT NULL,
+    information character varying
+);
+
+ALTER TABLE ONLY log_user_action
+    ADD CONSTRAINT log_user_action_pkey PRIMARY KEY (logid);
