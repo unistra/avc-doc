@@ -1,0 +1,101 @@
+/* ------------------------------
+Tutorial de cssdebutant.com (merci de laisser ce commentaire)
+------------------------------ */
+
+#container{width:1600px; margin:0 auto;}
+#topbar{width:auto; display:block; height:40px;}
+#navbar{width:auto; display:block; height:10px;}
+#helpbar{width:auto; display:block; height:30px;}
+
+#main{width:auto; display:block;}
+#column_left{width:1180px; margin-right:20px; float:left;}
+#column_right{width:400px; float:left; text-align: left;}
+
+/*
+div.spacer, permet de faire deux colonne dans #container
+*/
+
+div.spacer{clear:both; height:10px; display:block;}
+#footer{width:auto; display:block; height:24px;}
+
+
+html, body {
+ margin: 0;
+ padding: 0;
+ }
+body {
+ background-color: white; 
+ font-family:"Lucida Grande", Verdana, Arial, sans-serif;
+ font-size: 12px;
+ }
+h1 { /** gros titre */
+  font-family:"Lucida Grande", Verdana, Arial, sans-serif;        /* On se permet un changement de police : pas plus de deux par page, et à utiliser avec parcimonie (c'est le cas) */
+  background: #D3E2ED none;   /* Fond du titre bleu (et sans image de fond) */
+  color: gray;            /*  Donc on utilise une police blanche pour que le texte soit visible */
+  border: 1px dotted #242424; /* On encadre le titre d'un bleu clair de 3 pixels de largeur */
+  padding: 0.3em;             /* Espacement intérieur non nul pour que le texte ne colle pas à la bordure du cadre */
+  text-align: center;         /* Le titre doit être centré ! */
+  font-size: 24px;
+  
+}
+h2 { /** Les titres de paragraphes */
+  font-family:"Lucida Grande", Verdana, Arial, sans-serif;
+  color: gray;            
+  text-align: center; 
+  font-size: 16px;            
+}
+
+h3 { /** Les titres de paragraphes */
+  font-family:"Lucida Grande", Verdana, Arial, sans-serif;
+  color: gray;            
+  font-size: 12px;  
+}
+
+p,ul,li,td {
+ color: gray; 
+ }
+a:link {
+ color: gray;
+ }
+a:visited {
+ color: gray;
+ }
+a:hover {
+ color: #333399;
+}
+
+
+table {
+  width: 100%; /* La largeur c'est pour le test, mais ça montre qu'il est aussi possible de la spécifier en CSS */
+  border: 1px dashed gray; /* Et on met une jolie bordure originale autour du tableau */
+  font-size: 12px;
+}
+caption {
+  text-align: center; /* Classique : texte centré */
+  font-style: italic; /*             en italique  */
+  font-weight: bold;  /*             en gras      */
+  color: gray;     /*             et en bleu   */
+}
+th { /* Préférable à thead car offre plus de possibilités */
+  background-color: #D3E2ED; /* Chaque case d'en-tête aura un fond bleu */
+  color: gray; 
+  font-size: 13px;            /* Et un gris un peu plus foncé que la moyenne */
+}
+td {
+  font-size: 12px;
+}
+
+.error {
+  color: red;
+}
+
+.datetext{ color: #8A2BE2; }
+.reparttext{ color: #2F4F4F; }
+.echantext{ color: #008000; }
+.resulttext{ color: #FF4500; }
+/* FORM DEFAULTS */
+input, textarea, select { margin:2px 0; padding:2px 3px; vertical-align:middle; font-family:"Lucida Grande", Verdana, Arial, sans-serif; font-weight:normal; font-size:11px; }
+textarea { vertical-align:top !important; }
+input[type=text], input[type=password], textarea, select, .vTextField { border:1px solid #ccc; }
+
+
