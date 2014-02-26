@@ -20,40 +20,31 @@
 <div id="container">
 <div id="topbar"> <h1 align="center">Statistiques AVC</h1></div>
 <div id="navbar"></div>
-<div id="helpbar">Cliquer sur le type de stat désiré puis paramétrez le avec le formulaire. </div>
+<div id="helpbar">Cliquez sur le type de résultats que vous désirez puis remplissez le formulaire.</div>
 
 <div id="main">
 <div id="column_left"> 
-<a href="audiovideocast4.php?type=1">Nombre d'auteurs d'enregistrements ( répartion selon le cours)</a><br>
-<a href="audiovideocast4.php?type=2">Nombre de diffuseurs audiovideocast (repartition cours / utilisateur )</a><br>
-<a href="audiovideocast4.php?type=3">Nombre d'etudiants qui ont diffusés (repartition cours / utilisateur )</a><br>
-<a href="audiovideocast4.php?type=4">Nombre de biatoss et enseignantsqui ont diffusés (repartition cours / utilisateur )</a><br>
-<a href="audiovideocast4.php?type=6">Nombre d’enregistrements de plus de 30 secondes (repartition cours / utilisateur )</a><br>
-<a href="audiovideocast4.php?type=7">Nombre total de visualisations (repartition cours / utilisateur )</a><br>
-<a href="audiovideocast4.php?type=8">Nombre d'etudiants qui se sont connectés pour visualiser au moins un cours(repartition cours / utilisateur )</a><br>
-<a href="audiovideocast4.php?type=9">Nombre d'enseignants qui se sont connectés pour visualiser au moins un cours(repartition cours / utilisateur )</a><br>
-
+<a href="audiovideocast_stats.php?type=1">Nombre d'auteurs d'enregistrements ( répartion selon le cours)</a><br>
+<a href="audiovideocast_stats.php?type=2">Nombre de diffuseurs audiovideocast (repartition cours / utilisateur )</a><br>
+<a href="audiovideocast_stats.php?type=3">Nombre d'etudiants qui ont diffusés (repartition cours / utilisateur )</a><br>
+<a href="audiovideocast_stats.php?type=4">Nombre de biatoss et enseignantsqui ont diffusés (repartition cours / utilisateur )</a><br>
+<a href="audiovideocast_stats.php?type=6">Nombre d’enregistrements de plus de 30 secondes (repartition cours / utilisateur )</a><br>
+<a href="audiovideocast_stats.php?type=7">Nombre total de visualisations (repartition cours / utilisateur )</a><br>
+<a href="audiovideocast_stats.php?type=8">Nombre d'etudiants qui se sont connectés pour visualiser au moins un cours(repartition cours / utilisateur )</a><br>
+<a href="audiovideocast_stats.php?type=9">Nombre d'enseignants qui se sont connectés pour visualiser au moins un cours(repartition cours / utilisateur )</a><br>
+<a href="logout.php">Se deloguer</a>
 <?
 
-/* Programme de géneration des statistiques d'audiovideocast
-*  On génère en fonction des demande de l'utilisateur 
-*  Echantillonage Temporel si choix de date debut date fin
-*  Repartition par Composante de cours ou d'origine du diffuseur
-*  Connexion à la base de données Audiovideocast requise (Renseigner les parametres de connexion )
-*  Connexion au ldap (Renseigner les parametres de connexion dans la fonction getComposantes())
-*  car récuperation de la branche ou=structures,ou=uds,ou=referentiel,o=annuaire (champs ou et udsShortDescription)
-*  Auteur Christelle V.
-*  Version 0.1 
-*/
+// On appelle la session
+session_start ();
+if (!$_SESSION['loginOK']) {
 
 
-//conexion base de données
+	echo '<body onLoad="alert(\'Les données ne permettent pas de vous authentifier...\')">';
+	echo '<meta http-equiv="refresh" content="0;URL=index.php">';
+}
 
-$host = "***";
-$user = "****";
-$pass = "***";
-$db   = "***";
-
+include 'config.php';
 
 $connection = pg_connect ("host=$host dbname=$db user=$user password=$pass");
 if (!$connection)
@@ -69,7 +60,7 @@ $cache_echan= $_POST['echan'];$cache_repart= $_POST['repart'];
 //mettre les composantes et discipline en sessions
 if (!isset($_SESSION['composantes']))
 {
-	$composantes_utilisateur = getComposantes();
+	$composantes_utilisateur = getComposantes($ldapserver,$ldapport,$ldapuser,$ldappass,$ldaptree);
 	$_SESSION['composantes']=$composantes_utilisateur;
 }
 else
@@ -84,12 +75,11 @@ if (!isset($_SESSION['disciplines']))
 }
 else
 {
-	$disciplinelevel_cours = $_SESSION['discipline'];	
+	$disciplinelevel_cours = $_SESSION['disciplines'];	
 }
-
-	 
+;
 ?>
-    <FORM action="audiovideocast4.php" method="post">
+    <FORM action="audiovideocast_stats.php" method="post">
     Date début : <input type="text" id="debut" name="debut" style="width: 100px"    value="<? echo $cache_debut;?>" > 
     Date de fin : <input type="text" id="fin" name="fin"  style="width: 100px"     value="<? echo $cache_fin;?>"> 
   
@@ -247,7 +237,7 @@ if( $_POST['submit']=="poster")
 			echo "Dates Non sélectionnées Echantillonage non selectionné\n";
 			$wheredate = " and 1=1";
 			array_push($queries,$query.$wheredate);
-		        $lignes[0] = ""; 
+		        $lignes[0] = "resultats "; 
 			
 		}
 		//repartion par composantes
@@ -260,7 +250,7 @@ if( $_POST['submit']=="poster")
 				$queries_temp = $queries; $lignes_temp = $lignes;
 				$queries= array();$lignes=array();
 				echo "repartition selectionnée par composante utilisateurs<br>";
-				$composantes = array_keys($composantes_utisateur);
+				$composantes = array_keys($composantes_utilisateur);
 				for ($d=0; $d<count($queries_temp); $d++) 
 				{ 
 					$query_temp = $queries_temp[$d];
@@ -270,7 +260,7 @@ if( $_POST['submit']=="poster")
 						
 						$whererepart = " and institute ilike '$composantes[$e]'";
 						array_push($queries,$query_temp.$whererepart); 
-						array_push($lignes,$ligne_temp."".$composantes_utisateur[$composantes[$e]].";" ); 
+						array_push($lignes,$ligne_temp."".$composantes_utilisateur[$composantes[$e]].";" ); 
 					}
 				}
 				
@@ -279,10 +269,10 @@ if( $_POST['submit']=="poster")
 			
 			if ($repart=='c')
 			{
-				
+				echo "repartition selectionnée par composante cours<br>";
+				afficher_tableau($queries_temp);
 				$queries_temp = $queries; $lignes_temp = $lignes;
 				$queries= array();$lignes=array();
-				echo "repartition selectionnée par composante cours<br>";
 				$composantes = array();
 				$queryc = "select distinct SUBSTRING(formation, 1, 2) as composante, d.namecomp from course c, discipline d 
 				where SUBSTRING(formation, 1, 2) = d.codecomp order by d.namecomp";
@@ -293,6 +283,7 @@ if( $_POST['submit']=="poster")
 					$rowc = pg_fetch_row($resultc, $c);
 					$composantes[$c] = $rowc[0]; 
 				}
+				
 				for ($d=0; $d<count($queries_temp); $d++) 
 				{ 
 					$query_temp = $queries_temp[$d];
@@ -304,7 +295,9 @@ if( $_POST['submit']=="poster")
 						array_push($queries,$query_temp.$whererepart); 
 						array_push($lignes,$ligne_temp."".$disciplinelevel_cours[$composantes[$e]].";"  ); 
 					}
+				
 				}
+				
 				
 				
 			} //repartition composantes
@@ -380,7 +373,7 @@ if( $_POST['submit']=="poster")
 					$rowp = pg_fetch_row($resultp, $p);
 					$niveaux[$p] = $rowp[0];
 				}
-				print_r($queries_temp);
+				
 				for ($m=0; $m<count($queries_temp); $m++) 
 				{ 
 					$query_temp = $queries_temp[$m];
@@ -400,6 +393,7 @@ if( $_POST['submit']=="poster")
 		}
 		echo "<p></p>";
 		$total = 0;
+
 		for ($j = 0; $j < count($queries); $j++) 
 		{
 			$result = pg_query($connection, $queries[$j]) ;
@@ -407,6 +401,7 @@ if( $_POST['submit']=="poster")
 			$index = $lignes[$j];
 			if($type==1||$type==2||$type==3||$type==4||$type==5||$type==6)
 			{
+				echo " $index $rows <br>";
 				$resultat[$index] = $rows;
 				$total +=$rows;
 			} 
@@ -420,7 +415,8 @@ if( $_POST['submit']=="poster")
 			
 			
 		}
-	
+		//afficher_tableau($lignes) ;
+		
 		echo "<h3>Total : $total</h3>";
 		afficher_tableau($resultat) ;
 		
@@ -440,7 +436,6 @@ function afficher_tableau($tableau)
 {
 	foreach($tableau as $cle => $valeur) 
   	{
-		if($valeur>0)
     		echo "<b>$cle</b>". $valeur."<br/>";
   	}
 } 
@@ -537,18 +532,13 @@ function getDisciplineLevel($connection)
 		$name= $row1['name'];
         	$liste[$code] = $name;
         } 
-	
 	return $liste;
+
 }
 
-function getComposantes()
+function getComposantes($ldapserver,$ldapport,$ldapuser,$ldappass,$ldaptree )
 {
-	// config
-	$ldapserver = 'ldapuds.u-strasbg.fr';
-	$ldapport=389;
-	$ldapuser      = '***'; 
-	$ldappass     = "***";
-	$ldaptree    = "ou=structures,ou=uds,ou=referentiel,o=annuaire";
+	
 	$listeComposantes = array();
 	// connect
 	$ldapconn = ldap_connect($ldapserver,$ldapport) or die("Could not connect to LDAP server.");
@@ -570,6 +560,7 @@ function getComposantes()
 		$code= $info[$z]["ou"][0];
         	$description= $info[$z]["udslongdesc"][0];
         	$listeComposantes[$code] = $description;
+		//echo $description;
 	}
 	return $listeComposantes;
 }
