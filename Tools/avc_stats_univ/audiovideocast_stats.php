@@ -13,6 +13,72 @@
 	$( "#fin" ).datepicker();
 	});
 	</script>
+	<script>
+	$(document).ready(function() {
+		//click puis selection du texte du lien selectionne
+		$('a').on('click', function() {
+			
+			var recherche = $(this).text();	
+			$('#titre').text(recherche);
+			
+
+			$("a").each(function() {
+    				$(this).addClass('lien');
+				$(this).removeClass('highlight');
+			});
+
+
+			$(this).removeClass('lien');
+			$(this).addClass('highlight');
+			
+			var typevalue = $(this).attr("href").match(/type=([0-9]+)/)[1];
+			$('#type').val(typevalue);
+			return false;
+			
+		});
+		
+
+		$("#target").submit(function (event) {
+			//recuperer
+			var recherche = $('#titre').text();	
+			$('#titre').text(recherche);
+			isvalid = false
+			var debut = $('#debut').val();
+        		var fin = $('#fin').val();
+			var echan = $('#echan').val();
+			var repart = $('#repart').val();
+			var type = $('#type').val();
+			if ( (echan!='n') && ((debut=='')||(fin=='')) )
+			{
+				alert('Les dates de début et de fin sont obligatoires \nsi vous souhaitez échantilloner les résultats');
+			}
+			else 
+			{
+				isvalid=true;
+			}
+			var $form = $('#target');
+                        var serializedData = $form.serialize();
+			if (isvalid)
+			{ 
+				$.ajax({
+            				type: "POST",
+					url: "audiovideocast_stats.php",
+					data: serializedData,
+				        success: function(data) {
+						 console.log("Hooray, it worked!");
+					    },
+					error: function(jqXHR, textStatus, errorThrown) {
+						console.log("Status: " + textStatus + "Error: " + errorThrown);
+					    }
+					});
+			}
+			//return false;
+
+		});
+			
+
+	});
+	</script>
     </head>
 
 
@@ -20,19 +86,20 @@
 <div id="container">
 <div id="topbar"> <h1 align="center">Statistiques AVC</h1></div>
 <div id="navbar"></div>
-<div id="helpbar">Cliquez sur le type de résultats que vous désirez puis remplissez le formulaire.</div>
+<div id="helpbar" ><span class="help">Cliquez sur le type de résultats que vous désirez puis remplissez le formulaire.</span></div>
 
 <div id="main">
 <div id="column_left"> 
-<a href="audiovideocast_stats.php?type=1">Nombre d'auteurs d'enregistrements ( répartion selon le cours)</a><br>
-<a href="audiovideocast_stats.php?type=2">Nombre de diffuseurs audiovideocast (repartition cours / utilisateur )</a><br>
-<a href="audiovideocast_stats.php?type=3">Nombre d'etudiants qui ont diffusés (repartition cours / utilisateur )</a><br>
-<a href="audiovideocast_stats.php?type=4">Nombre de biatoss et enseignantsqui ont diffusés (repartition cours / utilisateur )</a><br>
-<a href="audiovideocast_stats.php?type=6">Nombre d’enregistrements de plus de 30 secondes (repartition cours / utilisateur )</a><br>
-<a href="audiovideocast_stats.php?type=7">Nombre total de visualisations (repartition cours / utilisateur )</a><br>
-<a href="audiovideocast_stats.php?type=8">Nombre d'etudiants qui se sont connectés pour visualiser au moins un cours(repartition cours / utilisateur )</a><br>
-<a href="audiovideocast_stats.php?type=9">Nombre d'enseignants qui se sont connectés pour visualiser au moins un cours(repartition cours / utilisateur )</a><br>
-<a href="logout.php">Se deloguer</a>
+<a href="audiovideocast_stats.php?type=1" class="lien" id="lien1">Auteurs  ( répartion selon le cours)</a><br>
+<a href="audiovideocast_stats.php?type=2" class="lien" id="lien2">Diffuseurs  (repartition cours / utilisateur )</a><br>
+<a href="audiovideocast_stats.php?type=3" class="lien" id="lien3">Etudiants diffuseurs (repartition cours / utilisateur )</a><br>
+<a href="audiovideocast_stats.php?type=4" class="lien" id="lien4">Biatoss et Enseignants diffuseur (repartition cours / utilisateur )</a><br>
+<a href="audiovideocast_stats.php?type=6" class="lien" id="lien5">Enregistrements de plus de 30 secondes (repartition cours / utilisateur )</a><br>
+<a href="audiovideocast_stats.php?type=7" class="lien" id="lien6">Visualisations (repartition cours / utilisateur )</a><br>
+<a href="audiovideocast_stats.php?type=8" class="lien" id="lien7">Etudiants connectés ayant visualisé au moins un cours(repartition cours / utilisateur )</a><br>
+<a href="audiovideocast_stats.php?type=9" class="lien" id="lien8">Enseignants connectés ayant visualisé au moins un cours (repartition cours / utilisateur )</a><br>
+<a href="audiovideocast_maj_composantes.php" class="lien">MaJ composante</a><br>
+<a href="logout.php" class="lien">Se deloguer</a>
 <?
 
 // On appelle la session
@@ -56,7 +123,7 @@ if (!$connection)
 $type=$_GET['type']; 
 $cache_debut= $_POST['debut']; $cache_fin= $_POST['fin']; 
 $cache_echan= $_POST['echan'];$cache_repart= $_POST['repart'];
-
+$selected ="selected";
 //mettre les composantes et discipline en sessions
 if (!isset($_SESSION['composantes']))
 {
@@ -77,28 +144,33 @@ else
 {
 	$disciplinelevel_cours = $_SESSION['disciplines'];	
 }
-;
+
+if( $_POST['submit']=="poster")
+{
+	$type= $_POST['type'];
+}
 ?>
-    <FORM action="audiovideocast_stats.php" method="post">
+    <h2><label id="titre"><? echo donner_titre($type);?></label></h2>
+    <FORM action="audiovideocast_stats.php" method="post" id="target">
     Date début : <input type="text" id="debut" name="debut" style="width: 100px"    value="<? echo $cache_debut;?>" > 
     Date de fin : <input type="text" id="fin" name="fin"  style="width: 100px"     value="<? echo $cache_fin;?>"> 
   
-	<select name="echan">
+	<select name="echan" id="echan">
 	<option value="n">Pas d'échantillonage</option>
-	<option value="1 day" >journalier</option>
-	<option value="1 week" >hebdomadaire</option>
-	<option value="1 month" >Mensuel</option>
-	<option value="1 year">Annuel</option>
+	<option value="1 day" <? if ($cache_echan=='1 day') echo "selected";?>>journalier</option>
+	<option value="1 week" <? if ($cache_echan=='1 week') echo "selected";?>>hebdomadaire</option>
+	<option value="1 month" <? if ($cache_echan=='1 month') echo "selected";?>>Mensuel</option>
+	<option value="1 year" <? if ($cache_echan=='1 year') echo "selected";?>>Annuel</option>
+	</select> 
+	<select name="repart" id="repart">
+        <option value="n" >pas de répartition</option>
+	<option value="c"  <? if ($cache_repart=='c') echo "selected";?>>composantes des cours</option>
+	<option value="l"  <? if ($cache_repart=='l') echo "selected";?>>niveaux des cours</option>
+	<option value="cl" <? if ($cache_repart=='cl') echo "selected";?>>composantes-niveau des cours</option>
+	<option value="cu" <? if ($cache_repart=='cu') echo "selected";?>>composantes des utilisateurs</option>
 	</select>
-	<select name="repart">
-        <option value="n">pas de répartition</option>
-	<option value="c" >composantes des cours</option>
-	<option value="l" >niveaux des cours</option>
-	<option value="cl">composantes-niveau des cours</option>
-	<option value="cu" >composantes des utilisateurs</option>
-	</select>
-   <input type ="text" value="<? echo $_GET['type'];?><? echo $_POST['type'];?>" name='type'>
-   <input type="submit" value="poster" name="submit">
+   <input type ="text" value="<? echo $_GET['type'];?><? echo $_POST['type'];?>" name='type' id='type'>
+   <input type="submit" value="poster" name="submit" id="submit">
 
   </FORM>
 
@@ -113,7 +185,7 @@ if( $_POST['submit']=="poster")
 	$type= $_POST['type'];
 	if($type==1||$type==2||$type==3||$type==4||$type==5||$type==6||$type==7||$type==8||$type==9)
 	{	
-		echo "<h2>".donner_titre($type)."</h2>";
+
 		//construire la query en fonction de la demande
 		$query = donner_requete($type);
 		if($debut!=='' && $fin!='')
@@ -480,38 +552,7 @@ function donner_requete($type)
 	return $retour;
 }
 
-function donner_titre($type)
-{
-	switch ($type)
-	 {
-	 case "1":
-	   $retour =  "Nombre d'auteurs d'enregistrements";
-	   break;
-	 case "2":
-	   $retour = "Nombre de diffuseurs d'enregistrements";
-	   break;
-	 case "3":
-	   $retour = "Nombre de diffuseurs etudiants";
-	   break;
-	 case "4":
-	   $retour = "Nombre de diffuseurs biatoss et enseignants";
-	   break;
-	 case "6":
-	   $retour = "Nombre de cours > 30 s";
-	   break;
-	 case "7":
-	   $retour = "Nombre de visualisations de cours ";
-	   break;
-	 case "8":
-	   $retour = "Nombre d'etudiants qui se sont connectés pour visualiser au moins un cours";
-	   break;
-	 case "9":
-	   $retour = "Nombre d'enseignants qui se sont connectés pour visualiser au moins un cours";
-	   break;
-	
-	 }
-	return $retour;
-}
+
 
 //get disciplineLevel
 function getDisciplineLevel($connection)
@@ -563,6 +604,41 @@ function getComposantes($ldapserver,$ldapport,$ldapuser,$ldappass,$ldaptree )
 		//echo $description;
 	}
 	return $listeComposantes;
+}
+
+
+
+function donner_titre($type)
+{
+	switch ($type)
+	 {
+	 case "1":
+	   $retour =  "Auteurs  ( répartion selon le cours)";
+	   break;
+	 case "2":
+	   $retour = "Diffuseurs  (repartition cours / utilisateur )";
+	   break;
+	 case "3":
+	   $retour = "Etudiants diffuseurs (repartition cours / utilisateur )";
+	   break;
+	 case "4":
+	   $retour = "Biatoss et Enseignants diffuseur (repartition cours / utilisateur )";
+	   break;
+	 case "6":
+	   $retour = "Enregistrements de plus de 30 secondes (repartition cours / utilisateur )";
+	   break;
+	 case "7":
+	   $retour = "Visualisations (repartition cours / utilisateur )";
+	   break;
+	 case "8":
+	   $retour = "Etudiants connectés ayant visualisé au moins un cours(repartition cours / utilisateur )";
+	   break;
+	 case "9":
+	   $retour = "Enseignants connectés ayant visualisé au moins un cours (repartition cours / utilisateur )";
+	   break;
+	
+	 }
+	return $retour;
 }
 
 ?>

@@ -35,14 +35,14 @@ h1 { /** gros titre */
   border: 1px dotted #242424; /* On encadre le titre d'un bleu clair de 3 pixels de largeur */
   padding: 0.3em;             /* Espacement intérieur non nul pour que le texte ne colle pas à la bordure du cadre */
   text-align: center;         /* Le titre doit être centré ! */
-  font-size: 24px;
+  font-size: 20px;
   
 }
 h2 { /** Les titres de paragraphes */
   font-family:"Lucida Grande", Verdana, Arial, sans-serif;
   color: gray;            
   text-align: center; 
-  font-size: 16px;            
+  font-size: 14px;            
 }
 
 h3 { /** Les titres de paragraphes */
@@ -97,5 +97,19 @@ td {
 input, textarea, select { margin:2px 0; padding:2px 3px; vertical-align:middle; font-family:"Lucida Grande", Verdana, Arial, sans-serif; font-weight:normal; font-size:11px; }
 textarea { vertical-align:top !important; }
 input[type=text], input[type=password], textarea, select, .vTextField { border:1px solid #ccc; }
+
+.help {
+  color : #2F4F4F ;
+  font-size: 12px;
+}
+.highlight {
+  font-weight:bold;
+  color : #404040 ;
+  font-size: 12px;
+}
+.lien {
+  color : #181818  ;
+  font-size: 12px;
+}
 
 
