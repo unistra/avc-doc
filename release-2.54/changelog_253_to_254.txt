@@ -1,0 +1,9 @@
+Changelog from version 2.53 to 2.54
+===================================
+
+- Migration from svn to github
+- Preset fields for test publication
+- Add search form for myspace
+- Add the CVMP4 course type for the new client (video with mp4)
+- Add institute parameter to user for stats
+- New stats scripts in Tools

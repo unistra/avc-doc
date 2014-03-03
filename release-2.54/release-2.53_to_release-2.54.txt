@@ -1,0 +1,6 @@
+Migration from release-2.53 to release-2.54
+===========================================
+
+* Add institute column for user table :
+
+ALTER TABLE "user" ADD COLUMN institute character varying;
