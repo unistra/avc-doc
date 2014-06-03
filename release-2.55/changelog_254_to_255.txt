@@ -1,0 +1,9 @@
+Changelog from version 2.53 to 2.54
+===================================
+
+- Embed code in html5
+- Correction of a bug with the previous page of the course access page
+- Add information in mails
+- no case sensitive search
+- add a test option for the upload page
+- Modify links
