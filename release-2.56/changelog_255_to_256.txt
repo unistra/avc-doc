@@ -1,0 +1,7 @@
+Changelog from version 2.54 to 2.55
+===================================
+
+- Scale optimization
+- Check the zip file before the publication
+- Transform all like to ilike (sql)
+- Correct a bug with the search form and author's name
