@@ -1,0 +1,10 @@
+Changelog from version 2.56 to 2.60
+===================================
+
+- Publication restriction with profiles : publisherLdapProfiles option in the conf file
+  ex : publisherLdapProfiles = ['student', 'employee', 'faculty']
+       publisherLdapProfiles = all
+       publisherLdapProfiles = ['student', 'employee', 'faculty', 'local']
+- New publication page : publication screencast (avc/publication_screencast)
+- New course type and new encoding job : CSC (screencast)
+
