@@ -54,4 +54,3 @@ rm ./../$2_tmp.avi
 cd ..
 rm -Rf workingVS
 rm VStimecode
-
