@@ -1,0 +1,7 @@
+Changelog from version 2.60 to 2.61
+===================================
+
+- correct html5 embed code
+- new client : remove webm from html5 page, embed code and new client encoding
+- add an intermediate option for the encodage state method
+
